@@ -1,0 +1,37 @@
+{
+  "name": "community-service",
+  "version": "1.0.0",
+  "description": "Web Programming - Assignment",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryulurala/Community-service.git"
+  },
+  "keywords": [],
+  "author": "ryulurala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryulurala/Community-service/issues"
+  },
+  "homepage": "https://github.com/ryulurala/Community-service#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.10.15",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
