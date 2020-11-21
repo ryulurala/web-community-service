@@ -1,8 +1,4 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-
-// donenv setup
-dotenv.config();
 
 // connect MongoDB
 const connect = () => {
