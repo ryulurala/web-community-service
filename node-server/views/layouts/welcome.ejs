@@ -1,5 +1,5 @@
 <div>
-  <%= "안녕하세요! " + user.nickname + "님" %>
+  <%= `안녕하세요! ${user.nickname}님` %>
 </div>
 <input id="my-id" type="hidden" value="<%= user.id %>" />
 <a id="my-profile" href="/messageList">Message List</a>

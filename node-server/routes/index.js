@@ -12,7 +12,6 @@ router.use((req, res, next) => {
 router.get("/", async (req, res, next) => {
   // render main page
   try {
-    console.log(`req.user = ${req.user}`);
     res.render("main", { title: "Community Service", header: "main" });
   } catch (err) {
     console.error(err);

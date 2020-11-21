@@ -14,7 +14,7 @@ const router = express.Router();
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
   const { email, nickname, password } = req.body;
   try {
-    const exUser = await User.findOne({ email: email });
+    const exUser = await User.findOne({ email: email }); // email is unique
     if (exUser) {
       return res.redirect("/join?error=exist");
     }
@@ -42,6 +42,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
     if (!user) {
       return res.redirect(`/?loginError=${info.message}`);
     }
+    // save user in session
     return req.login(user, (loginError) => {
       if (loginError) {
         console.error(loginError);
@@ -54,7 +55,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 
 // Logout
 router.get("/logout", isLoggedIn, (req, res) => {
-  req.logout();
+  req.logout(); // delete user in session
   req.session.destroy();
   res.redirect("/");
 });

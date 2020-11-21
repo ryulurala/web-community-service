@@ -8,6 +8,7 @@ module.exports = () => {
   passport.use(
     new LocalStrategy(
       {
+        // name of input tag
         usernameField: "email",
         passwordField: "password",
       },
