@@ -12,7 +12,7 @@ const connect = () => {
   mongoose.connect(
     process.env.MONGO_URI,
     {
-      dbName: "nodejs",
+      dbName: "asg",
       useNewUrlParser: true,
       useCreateIndex: true,
     },

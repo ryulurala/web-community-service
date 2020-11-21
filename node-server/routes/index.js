@@ -1,4 +1,5 @@
 const express = require("express");
+const { isNotLoggedIn } = require("./about-login");
 
 const router = express.Router();
 
@@ -8,22 +9,33 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res, next) => {
   // render main page
-  res.render("index", { title: "Home", header: "Home" });
+  try {
+    console.log(`req.user = ${req.user}`);
+    res.render("main", { title: "Community Service", header: "main" });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 });
 
-router.get("/about", (req, res) => {
+router.get("/about", async (req, res, next) => {
   // render about page
-  res.render("about", { title: "About", header: "About" });
+  try {
+    res.render("about", { layout: "./about.ejs" });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 });
 
-router.get("/message_list", (req, res) => {
-  res.render("profile", { title: "My info" });
-});
+// router.get("/message_list", (req, res) => {
+//   res.render("profile", { title: "My info" });
+// });
 
-router.get("/join", (req, res) => {
-  res.render("join", { title: "Register" });
+router.get("/join", isNotLoggedIn, (req, res) => {
+  res.render("join", { title: "Register", header: "Join" });
 });
 
 module.exports = router;

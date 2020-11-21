@@ -12,16 +12,16 @@ const router = express.Router();
 
 // Register
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
-  const { email, nick, password } = req.body;
+  const { email, nickname, password } = req.body;
   try {
-    const exUser = await User.findOne({ where: { email } });
+    const exUser = await User.findOne({ email: email });
     if (exUser) {
       return res.redirect("/join?error=exist");
     }
     const hash = await bcrypt.hash(password, 12);
     await User.create({
       email,
-      nick,
+      nickname,
       password: hash,
     });
     return res.redirect("/");
@@ -34,6 +34,7 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
 // Login
 router.post("/login", isNotLoggedIn, (req, res, next) => {
   passport.authenticate("local", (authError, user, info) => {
+    // done call-back function
     if (authError) {
       console.error(authError);
       return next(authError);
@@ -48,7 +49,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
       }
       return res.redirect("/");
     });
-  })(req, res, next);
+  })(req, res, next); // middleware extend
 });
 
 // Logout

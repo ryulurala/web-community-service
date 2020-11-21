@@ -12,7 +12,7 @@ exports.isNotLoggedIn = (req, res, next) => {
     next();
   } else {
     // redirect
-    const message = encodeURIComponent("Aleady login");
+    const message = encodeURIComponent("Already login");
     res.redirect(`/?error=${message}`);
   }
 };

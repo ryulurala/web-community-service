@@ -1,4 +1,6 @@
-<div><%= "안녕하세요! " + user.nick + "님" %></div>
-<input id="my-id" type="hidden" value="{{ user.id }}" />
-<a id="my-profile" href="/message_list" class="btn">메시지함</a>
-<a id="logout" href="/auth/logout" class="btn">로그아웃</a>
+<div>
+  <%= "안녕하세요! " + user.nickname + "님" %>
+</div>
+<input id="my-id" type="hidden" value="<%= user.id %>" />
+<a id="my-profile" href="/messageList">Message List</a>
+<a id="logout" href="/auth/logout">Logout</a>

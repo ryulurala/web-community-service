@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./passport");
+const ejsLayouts = require("express-ejs-layouts");
 
 // routes
 const connect = require("./schemas");
@@ -14,15 +15,15 @@ const authRouter = require("./routes/auth");
 
 dotenv.config();
 
+// express init
 const app = express();
 app.set("port", process.env.PORT || 8000);
 
 // view engind setup
+app.use(ejsLayouts);
+app.set("layout", path.join(__dirname, "views/layouts/layout.ejs"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
-// mongoose connect(index.js)
-connect();
 
 // logging
 app.use(morgan("dev"));
@@ -35,6 +36,9 @@ app.use(express.json());
 
 // use querystring module(default: express generator)
 app.use(express.urlencoded({ extended: false }));
+
+// mongoose connect(index.js)
+connect();
 
 // cookie, session
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -73,10 +77,10 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
 
   // render error page
-  res.render("error");
+  res.render("error", { layout: "./error.ejs" });
 });
 
 // listen
 app.listen(app.get("port"), () => {
-  console.log(app.get("port"), " waiting...");
+  console.log(app.get("port"), " Listening...");
 });

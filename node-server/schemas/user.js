@@ -2,32 +2,15 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 const userSchema = new Schema({
-  // name: {
-  //   type: String,
-  //   require: true,
-  //   unique: true,
-  // },
-  // age: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // married: {
-  //   type: Boolean,
-  //   required: true,
-  // },
-  // comment: String,
-  // createdAt: {
-  //   type: Date,
-  //   default: Date.now,
-  // },
   email: {
     type: String,
     require: true,
     unique: true,
   },
-  nick: {
+  nickname: {
     type: String,
     require: false,
+    unique: true, // for. message
   },
   password: {
     type: String,
@@ -38,9 +21,9 @@ const userSchema = new Schema({
     rerquire: false,
     default: "local",
   },
-  snsId: {
-    type: String,
-    require: true,
+  cretedAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 

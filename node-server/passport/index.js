@@ -8,14 +8,19 @@ const User = require("../schemas/user");
 
 module.exports = () => {
   // object -> byte
+  // by req.login(), only first time
   passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.id); // user.id -> first parameter of deserializeUser
   });
 
   // byte -> object
+  // by passport.session()
   passport.deserializeUser((id, done) => {
-    User.findOne({ where: { id } })
-      .then((user) => done(null, user))
+    User.findById(id)
+      .then((user) => {
+        console.log(`deserializeUser() user = ${user}`);
+        done(null, user);
+      }) // success: req.user = user
       .catch((err) => done(err));
   });
 
