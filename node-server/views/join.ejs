@@ -1,3 +1,12 @@
+<%- contentFor("scripts") %>
+<script>
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get('error')) {
+      alert('Aleady exist');
+    }
+  };
+</script>
+
 <%- contentFor("contents") %>
 <form id="join-form" action="/auth/join" method="post">
   <div>
@@ -12,12 +21,3 @@
   </div>
   <button id="join-btn" type="submit">Register</button>
 </form>
-
-<%- contentFor("scripts") %>
-<script>
-  window.onload = () => {
-    if (new URL(location.href).searchParams.get('error')) {
-      alert('Aleady exist');
-    }
-  };
-</script>

@@ -6,10 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/main.css" />
+
+  <script>
+    window.onload = () => {
+      if (new URL(location.href).searchParams.get("loginError")) {
+        alert(new URL(location.href).searchParams.get("loginError"));
+      }
+    };
+  </script>
+  <%- scripts %>
 </head>
 
 <body>
   <%- include("./header.ejs") %>
+
   <main>
     <% if(user && user.id) { %>
     <h1>welocme</h1>
@@ -19,15 +29,8 @@
     <% } %>
   </main>
   <%- contents %>
+
   <%- include("./footer.ejs") %>
-  <script>
-    window.onload = () => {
-      if (new URL(location.href).searchParams.get("loginError")) {
-        alert(new URL(location.href).searchParams.get("loginError"));
-      }
-    };
-  </script>
-  <%- scripts %>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 const express = require("express");
-const { isNotLoggedIn } = require("./about-login");
+const { isNotLoggedIn } = require("./middlewares");
 
 const router = express.Router();
 

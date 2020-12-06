@@ -3,7 +3,7 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 
 // middle-ware
-const { isLoggedIn, isNotLoggedIn } = require("./about-login");
+const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 
 // User schema
 const User = require("../schemas/user");
