@@ -18,19 +18,23 @@
 </head>
 
 <body>
-  <%- include("./header.ejs") %>
+  <div class="container">
 
-  <main>
-    <% if(user && user.id) { %>
-    <h1>welocme</h1>
-    <%- include("./welcome.ejs") %>
-    <% } else { %>
-    <%- include("./login.ejs")%>
-    <% } %>
-  </main>
-  <%- contents %>
+    <%- include("./header.ejs") %>
 
-  <%- include("./footer.ejs") %>
+    <main>
+      <% if(user && user.id) { %>
+      <h1>welocme</h1>
+      <%- include("./welcome.ejs") %>
+      <% } else { %>
+      <%- include("./login.ejs")%>
+      <% } %>
+    </main>
+    <%- contents %>
+
+    <%- include("./footer.ejs") %>
+  </div>
 </body>
+
 
 </html>

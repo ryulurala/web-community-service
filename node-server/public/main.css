@@ -1,3 +1,55 @@
 * {
   box-sizing: border-box;
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+@media screen and (min-width: 800px) {
+  .container {
+    width: 800px;
+    margin: 0 auto;
+  }
+}
+footer {
+  text-align: center;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  border-radius: 4px;
+  height: 37px;
+  padding: 10px;
+  border: 1px solid silver;
+}
+#join {
+  float: right;
+}
+#join-form {
+  padding: 10px;
+  text-align: center;
+}
+#search-form {
+  text-align: right;
+}
+#hashtag-form {
+  text-align: right;
+}
+@media screen and (min-width: 800px) {
+  .timeline {
+    width: 500px;
+  }
+}
+.input-group {
+  margin-bottom: 15px;
+}
+.input-group label {
+  width: 25%;
+  display: inline-block;
+}
+.input-group input {
+  width: 70%;
+}
