@@ -12,6 +12,8 @@ const ejsLayouts = require("express-ejs-layouts");
 const connect = require("./schemas");
 const indexRouter = require("./routes");
 const authRouter = require("./routes/auth");
+const pageRouter = require("./routes/page");
+const postRouter = require("./routes/post");
 
 dotenv.config();
 
@@ -30,6 +32,7 @@ app.use(morgan("dev"));
 
 // static files
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/img", express.static(path.join(__dirname, "uploads")));
 
 // body-parser in express
 app.use(express.json());
@@ -62,6 +65,8 @@ app.use(passport.session());
 // router
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
+app.use("/page", pageRouter);
+app.use("/post", postRouter);
 
 // router error
 app.use((req, res, next) => {

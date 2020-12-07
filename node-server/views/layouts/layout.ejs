@@ -19,12 +19,10 @@
 
 <body>
   <div class="container">
-
     <%- include("./header.ejs") %>
-
+    <%- include("./pages.ejs") %>
     <main>
       <% if(user && user.id) { %>
-      <h1>welocme</h1>
       <%- include("./welcome.ejs") %>
       <% } else { %>
       <%- include("./login.ejs")%>

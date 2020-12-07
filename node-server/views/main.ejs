@@ -1,50 +1,7 @@
 <%- contentFor("scripts") %>
 <!-- scripts 들어갈 내용(layout 에다가) -->
-<script>
-  if (document.getElementById('img')) {
-    document.getElementById('img').addEventListener('change', function (event) {
-      const formData = new FormData();
-      console.log(this, this.files);
-      formData.append('img', this.files[0]);
-      axios.post('/post/img', formData)
-        .then((res) => {
-          document.getElementById('img-url').value = res.data.url;
-          document.getElementById('img-preview').src = res.data.url;
-          document.getElementById('img-preview').style.display = 'inline';
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    });
-  }
-</script>
+
 
 <%- contentFor("contents") %>
 <!-- contents로 들어갈 내용(layout 에다가) -->
-<div class="timeline">
-  <% if(user) { %>
-  <div>
-    <form id="twit-form" action="/post" method="post" enctype="multipart/form-data">
-      <div class="input-group">
-        <textarea id="twit" name="content" maxlength="140"></textarea>
-      </div>
-      <div class="img-preview">
-        <img id="img-preview" src="" style="display: none;" width="250" alt="미리보기">
-        <input id="img-url" type="hidden" name="url">
-      </div>
-      <div>
-        <label id="img-label" for="img">사진 업로드</label>
-        <input id="img" type="file" accept="image/*">
-        <button id="twit-btn" type="submit" class="btn">올리기</button>
-      </div>
-    </form>
-  </div>
-  <% } %>
-  <div class="twits">
-    <form id="hashtag-form" action="/hashtag">
-      <input type="text" name="hashtag" placeholder="태그 검색">
-      <button class="btn">검색</button>
-    </form>
-
-  </div>
-</div>
+<h1 style="text-align: center;">welcome</h1>

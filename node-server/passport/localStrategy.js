@@ -13,7 +13,7 @@ module.exports = () => {
         passwordField: "password",
       },
       async (email, password, done) => {
-        console.log("async local-strategy");
+        // console.log("async local-strategy");
         try {
           const exUser = await User.findOne({ email: email });
           if (exUser) {
@@ -21,11 +21,11 @@ module.exports = () => {
             if (result) {
               // coreect password
               done(null, exUser);
-              console.log("correct password");
+              // console.log("correct password");
             } else {
               // incorrect password
               done(null, false, { message: "No correct password" });
-              console.log("incoreect password");
+              // console.log("incoreect password");
             }
           } else {
             // no exist user

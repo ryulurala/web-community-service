@@ -21,7 +21,7 @@ const userSchema = new Schema({
     rerquire: false,
     default: "local",
   },
-  cretedAt: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },

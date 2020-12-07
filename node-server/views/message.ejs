@@ -5,7 +5,7 @@
   <div class="followings half">
     <h2>메시지 목록</h2>
     <% if (user.messages) {%>
-    <% for (message in user.messages) {%>
+    <% for (message of user.messages) {%>
     <div><%= message.nick %></div>
     <% } %>
     <% } %>

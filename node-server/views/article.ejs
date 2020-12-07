@@ -1,0 +1,23 @@
+<%- contentFor("scripts") %>
+<!-- scripts 들어갈 내용(layout 에다가) -->
+
+<%- contentFor("contents") %>
+<!-- contents로 들어갈 내용(layout 에다가) -->
+<div class="posts">
+  <h2><%= `제목: ${post.title}` %> </h2>
+  <h4><%= `내용: ${post.content}` %></h4>
+  <h5>
+    작성자:
+    <%= `${post.author.nickname}` %>
+    &nbsp;
+    / 작성일:
+    <%= `${post.createdAt.toISOString()}` %>
+  </h5>
+  <% if(user && user.id === post.author.id) {%>
+  <p>
+    <button>수정</button>
+    <button>삭제</button>
+  </p>
+  <% } %>
+  <a href=".">이전으로</a>
+</div>

@@ -7,13 +7,12 @@ body {
   padding: 0;
   height: 100%;
 }
-@media screen and (min-width: 800px) {
-  .container {
-    width: 800px;
-    margin: 0 auto;
-  }
+header {
+  top: 0;
+  text-align: center;
 }
 footer {
+  bottom: 0;
   text-align: center;
 }
 input[type="text"],
@@ -24,32 +23,26 @@ textarea {
   height: 37px;
   padding: 10px;
   border: 1px solid silver;
+  resize: none;
 }
-#join {
-  float: right;
+#login-form {
+  padding: 10px;
+  text-align: center;
 }
 #join-form {
   padding: 10px;
   text-align: center;
 }
-#search-form {
+.pages {
   text-align: right;
 }
-#hashtag-form {
-  text-align: right;
+.post-form {
+  text-align: center;
 }
-@media screen and (min-width: 800px) {
-  .timeline {
-    width: 500px;
-  }
-}
-.input-group {
-  margin-bottom: 15px;
-}
-.input-group label {
-  width: 25%;
-  display: inline-block;
-}
-.input-group input {
-  width: 70%;
+.posts {
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px;
 }

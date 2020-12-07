@@ -18,7 +18,7 @@ module.exports = () => {
   passport.deserializeUser((id, done) => {
     User.findById(id)
       .then((user) => {
-        console.log(`deserializeUser() user = ${user}`);
+        console.log(`!!!!!!deserializeUser() user = ${user.email}`);
         done(null, user);
       }) // success: req.user = user
       .catch((err) => done(err));
