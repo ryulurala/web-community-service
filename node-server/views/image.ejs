@@ -54,14 +54,13 @@
         // 삭제 버튼
         if (confirm("삭제하시겠습니까?")) {
           await axios.delete(location.href);
-          location.href = "/page/board";
+          location.href = "/page/gallery";
         }
       } else {
         // 완료 버튼
         // console.log(`url = ${location.href}`);
         await axios.patch(location.href, {
-          title: title.firstElementChild.getAttribute("value"),
-          content: content.firstElementChild.getAttribute("value"),
+          content: content.firstElementChild.getAttribute("src"),
         });
         location.reload();
       }
@@ -74,34 +73,35 @@
 <table>
   <tbody>
     <tr>
-      <td>제목:</td>
-      <td id="title" colspan="5" style="text-align: left"><%= post.title %></td>
+      <td>그림:</td>
     </tr>
     <tr>
-      <td>내용:</td>
-      <td id="content" colspan="5" style="text-align: left">
-        <%= post.content %>
+      <td>
+        <img
+          id="content"
+          src="<%= post.content %>"
+          width="250px"
+          height="250px"
+          style="text-align: left"
+        />
       </td>
     </tr>
     <tr>
-      <td>작성자:</td>
-      <td style="text-align: left"><%= post.author.nickname %></td>
+      <td style="text-align: left"><%=`작성자: ${post.author.nickname}`%></td>
     </tr>
-    <tr>
-      <td>작성일:</td>
-      <td style="text-align: left"><%= post.createdAt.toISOString() %></td>
+      <td style="text-align: left"><%=`작성일: ${post.createdAt.toISOString()}` %></td>
     </tr>
     <% if(user && user.id===post.author.id) {%>
     <tr>
-      <td colspan="5">
+      <td>
         <button id="btn-update">수정</button>
         <button id="btn-delete">삭제</button>
       </td>
       <% } %>
     </tr>
     <tr>
-      <td colspan="5">
-        <a href="/page/board">목록</a>
+      <td>
+        <a href="/page/gallery">목록</a>
       </td>
     </tr>
   </tbody>

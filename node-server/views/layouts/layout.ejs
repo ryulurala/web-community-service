@@ -1,38 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/main.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-  <link rel="stylesheet" href="/main.css" />
+    <script>
+      window.onload = () => {
+        if (new URL(location.href).searchParams.get("loginError")) {
+          alert(new URL(location.href).searchParams.get("loginError"));
+        }
+      };
+    </script>
+    <%- scripts %>
+  </head>
 
-  <script>
-    window.onload = () => {
-      if (new URL(location.href).searchParams.get("loginError")) {
-        alert(new URL(location.href).searchParams.get("loginError"));
-      }
-    };
-  </script>
-  <%- scripts %>
-</head>
-
-<body>
-  <div class="container">
-    <%- include("./header.ejs") %>
-    <%- include("./pages.ejs") %>
-    <main>
-      <% if(user && user.id) { %>
-      <%- include("./welcome.ejs") %>
-      <% } else { %>
-      <%- include("./login.ejs")%>
-      <% } %>
-    </main>
-    <%- contents %>
-
-    <%- include("./footer.ejs") %>
-  </div>
-</body>
-
-
+  <body>
+    <div class="container">
+      <%- include("./header.ejs") %> <%- include("./pages.ejs") %>
+      <main>
+        <% if(user && user.id) { %> <%- include("./welcome.ejs") %> <% } else {
+        %> <%- include("./login.ejs")%> <% } %>
+      </main>
+      <%- contents %> <%- include("./footer.ejs") %>
+    </div>
+  </body>
 </html>

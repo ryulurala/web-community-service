@@ -36,7 +36,7 @@ router.post("/board", isLoggedIn, async (req, res, next) => {
   // board 추가
   try {
     // console.log(req.user);
-    const board = await Board.create({
+    await Board.create({
       title: req.body.title,
       content: req.body.content,
       author: req.user.id,
@@ -59,7 +59,7 @@ router.post(
       // console.log(req.file);
       const url = `/img/${req.file.filename}`; // 내부 경로 감추기
       console.log(`url = ${url}`);
-      const gallery = await Gallery.create({
+      await Gallery.create({
         content: url,
         author: req.user.id,
       });

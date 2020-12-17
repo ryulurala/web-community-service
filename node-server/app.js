@@ -21,10 +21,9 @@ dotenv.config();
 const app = express();
 app.set("port", process.env.PORT || 8000);
 
-// view engind setup
+// view engine setup
 app.use(ejsLayouts);
 app.set("layout", path.join(__dirname, "views/layouts/layout.ejs"));
-app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // logging

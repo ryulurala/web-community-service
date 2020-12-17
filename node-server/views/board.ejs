@@ -1,26 +1,46 @@
 <%- contentFor("scripts") %>
-<!-- scripts 들어갈 내용(layout 에다가) -->
+  <!-- scripts 들어갈 내용(layout 에다가) -->
 
-<%- contentFor("contents") %>
-<!-- contents로 들어갈 내용(layout 에다가) -->
-<div class="post-form">
-  <% if(user && user.id){ %>
-  <form id="board-form" action="/post/board" method="post">
-    <input type="text" name="title" placeholder="제목" required autofocus>
-    <br>
-    <textarea name="content" cols="50px" maxlength="140" placeholder="내용" required autofocus></textarea>
-    <br>
-    <button type="submit">올리기</button>
-  </form>
-  <% } %>
-  <% for(let i=0; i<posts.length; i++) { %>
-  <div class="posts">
-    <h2>
-      <%= `게시글 ${posts.length-i}: ` %>
-      <a href="/page/board/<%= posts[i].id %>">
-        <%= posts[i].title %>
-      </a>
-    </h2>
-  </div>
-  <% } %>
-</div>
+  <%- contentFor("contents") %>
+    <!-- contents로 들어갈 내용(layout 에다가) -->
+    <div class="post-form">
+      <% if(user && user.id){ %>
+        <form id="board-form" action="/post/board" method="post">
+          <input type="text" name="title" placeholder="제목" required autofocus>
+          <br>
+          <textarea name="content" cols="50px" maxlength="140" placeholder="내용" required autofocus></textarea>
+          <br>
+          <button type="submit">올리기</button>
+        </form>
+        <% } %>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let i=0; i<posts.length; i++) { %>
+          <tr>
+            <td>
+              <%= posts.length-i %>
+            </td>
+            <td>
+              <a href="/page/board/<%= posts[i].id %>">
+                <%= posts[i].title %>
+              </a>
+            </td>
+            <td>
+              <%= posts[i].author.nickname %>
+            </td>
+            <td>
+              <%= posts[i].createdAt.toISOString() %>
+            </td>
+          </tr>
+          <% } %>
+      </tbody>
+    </table>

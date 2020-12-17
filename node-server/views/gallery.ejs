@@ -1,55 +1,86 @@
 <%- contentFor("scripts") %>
 <!-- scripts 들어갈 내용(layout 에다가) -->
+<% if (user && user.id) { %>
 <script>
   window.onload = () => {
-    if (document.getElementById("gallery-form")) {
-      let preview = document.getElementById("img-preview");
-      let upload = document.getElementById("img");
-      let button = document.getElementById("img-btn");
+    
+    let preview = document.getElementById("img-preview");
+    let upload = document.getElementById("img");
+    let button = document.getElementById("img-btn");
+    
+    let reader = new FileReader();
+    reader.onload = (e) => {
+      // console.log("onload");
+      preview.setAttribute("src", e.target.result);
+      preview.setAttribute("style", "display: inline;");
+      button.setAttribute("style", "display: inline;");
+    };
 
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        // console.log("onload");
-        preview.setAttribute("src", e.target.result);
-        preview.setAttribute("style", "display: inline;");
-        button.setAttribute("style", "display: inline;");
-      };
-
-      upload.onchange = (e) => {
-        // console.log(e.target.files[0]);
-        if (e.target.files[0]) {
-          reader.readAsDataURL(e.target.files[0]);
-        } else {
-          preview.setAttribute("style", "display: none;");
-          button.setAttribute("style", "display: none;");
-        }
-      };
-    }
+    upload.onchange = (e) => {
+      // console.log(e.target.files[0]);
+      if (e.target.files[0]) {
+        reader.readAsDataURL(e.target.files[0]);
+      } else {
+        preview.setAttribute("style", "display: none;");
+        button.setAttribute("style", "display: none;");
+      }
+    };
   };
 </script>
+<% } %> 
 
 <%- contentFor("contents") %>
 <!-- contents로 들어갈 내용(layout 에다가) -->
+<% if(user && user.id) {%>
 <div class="post-form">
-  <% if(user && user.id) {%>
-  <form id="gallery-form" action="/post/gallery" method="post" enctype="multipart/form-data">
-    <img id="img-preview" src="" width="250px" style="display: none;" alt="미리보기">
-    <br>
-    <input id="img" type="file" name="img" accept="image/*">
-    <button id="img-btn" type="submit" style="display: none;">올리기</button>
+  <form
+    id="gallery-form"
+    action="/post/gallery"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <img
+      id="img-preview"
+      src=""
+      width="250px"
+      style="display: none"
+      alt="미리보기"
+    />
+    <br />
+    <input id="img" type="file" name="img" accept="image/*" />
+    <button id="img-btn" type="submit" style="display: none">올리기</button>
   </form>
-  <% } %>
-  <% for(let i=0; i<posts.length; i++) { %>
-  <div class="posts">
-    <p><%= `사진 ${posts.length-i}` %>
-      &nbsp;
-      <% if(user && user.id === posts[i].author.id) {%>
-      <button>수정</button>
-      <button>삭제</button>
-    </p>
-    <% } %>
-    <img src="<%= posts[i].content %>" width="250px" height="250px">
-    <h5><%= `작성자: ${posts[i].author.nickname} / 작성일: ${posts[i].createdAt.toISOString()}`%></h5>
-  </div>
-  <% } %>
 </div>
+<table>
+  <tbody>
+  <% } for(let i=0; i<posts.length; i++) { %>
+      <tr>
+        <td>
+          <a href="/page/gallery/<%= posts[i].id %>">
+            <%= `사진 ${posts.length-i}` %>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img src="<%= posts[i].content %>" width="250px" height="250px" />
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: left">
+          <%= `작성자: ${posts[i].author.nickname}` %>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: left">
+          <%= `작성일: ${posts[i].createdAt.toISOString()}` %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <hr>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>

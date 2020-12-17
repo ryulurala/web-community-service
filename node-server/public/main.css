@@ -39,10 +39,16 @@ textarea {
 .post-form {
   text-align: center;
 }
-.posts {
+.posts,
+table {
   text-align: center;
   border: 2px solid black;
   border-radius: 4px;
   padding: 10px;
   margin: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+td {
+  padding: 5px;
 }
