@@ -27,11 +27,11 @@ textarea {
 }
 #login-form {
   padding: 10px;
-  text-align: center;
+  text-align: left;
 }
 #join-form {
   padding: 10px;
-  text-align: center;
+  text-align: left;
 }
 .pages {
   text-align: right;

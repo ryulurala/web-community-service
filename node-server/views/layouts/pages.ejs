@@ -2,4 +2,15 @@
   <a href="/" target="_self">홈</a>
   <a href="/page/board" target="_self">게시판</a>
   <a href="/page/gallery" target="_self">갤러리</a>
+  <br />
+  <br />
+  <form action="/page" method="get">
+    <input type="text" name="search" />
+    <br />
+    <select name="option" required autofocus>
+      <option value="content">본문</option>
+      <option value="author">작성자</option>
+    </select>
+    <input type="submit" value="검색" />
+  </form>
 </div>

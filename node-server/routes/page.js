@@ -5,8 +5,48 @@ const { upload } = require("./middlewares");
 
 const { Board, Gallery } = require("../schemas/post");
 const { isLoggedIn } = require("./middlewares");
+const User = require("../schemas/user");
+const { serialize } = require("v8");
 
 const router = express.Router();
+
+router.get("/", async (req, res, next) => {
+  // 본문, 작성자 검색
+  try {
+    // console.log(`req.params search = ${req.query.search}`);
+    console.log(`req.params option = ${req.query.option}`);
+    const searchText = req.query.search;
+    const option = req.query.option;
+    let posts;
+
+    if (option === "content") {
+      // content
+      posts = await Board.find({ content: new RegExp(searchText) })
+        .populate("author", "nickname")
+        .sort({ createdAt: -1 });
+
+      console.log(`length = ${posts.length}`);
+    } else if (option === "author") {
+      const user = await User.find({ nickname: searchText });
+      // console.log(`userId = ${user}`);
+      posts = await Board.find({ author: user }).populate("author", "nickname");
+      posts = posts.concat(
+        await Gallery.find({ author: user }).populate("author", "nickname")
+      );
+      // 최근 순으로 정렬
+      posts.sort((postA, postB) => postB.createdAt - postA.createdAt);
+    }
+
+    res.render("search", {
+      title: "Community Service",
+      header: "search",
+      posts: posts,
+    });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
 
 router.get("/board", async (req, res, next) => {
   // render board page
@@ -122,7 +162,6 @@ router
     async (req, res, next) => {
       // 수정
       try {
-        // 기존 파일 삭제
         const preFile = await Gallery.findOne({
           _id: req.params.id,
         }).select({ content: 1 });
@@ -130,8 +169,10 @@ router
         const realFileName = preFile.content.replace(/img/g, "uploads");
         const unlinkPath = path.join(__dirname, "../" + realFileName);
 
+        // 기존 파일 삭제
         fs.unlink(unlinkPath, (err) => {
-          console.log("ok!");
+          if (err) console.error(err);
+          // console.log("ok!");
         });
 
         // console.log("put==================" + req.file.filename);

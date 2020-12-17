@@ -13,15 +13,17 @@
         }
       };
     </script>
-    <%- scripts %>
   </head>
-
   <body>
     <div class="container">
-      <%- include("./header.ejs") %> <%- include("./pages.ejs") %>
+      <%- include("./header.ejs") %>
+      <div><%- include("./pages.ejs") %></div>
       <main>
-        <% if(user && user.id) { %> <%- include("./welcome.ejs") %> <% } else {
-        %> <%- include("./login.ejs")%> <% } %>
+        <% if(user && user.id) { %>
+        <div><%- include("./welcome.ejs") %></div>
+        <% } else {%>
+        <div><%- include("./login.ejs")%></div>
+        <% } %>
       </main>
       <%- contents %> <%- include("./footer.ejs") %>
     </div>
