@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const { upload } = require("./middlewares");
 
 const { Board, Gallery } = require("../schemas/post");
 const { isLoggedIn } = require("./middlewares");
@@ -114,22 +115,43 @@ router
       next(err);
     }
   })
-  .patch("/gallery/:id", isLoggedIn, async (req, res, next) => {
-    // 수정
-    try {
-      await Gallery.updateOne(
-        { _id: req.params.id },
-        {
-          content: req.body.content,
-        }
-      );
+  .put(
+    "/gallery/:id",
+    isLoggedIn,
+    upload.single("img"),
+    async (req, res, next) => {
+      // 수정
+      try {
+        // 기존 파일 삭제
+        const preFile = await Gallery.findOne({
+          _id: req.params.id,
+        }).select({ content: 1 });
 
-      res.end("ok-update");
-    } catch (err) {
-      console.error(err);
-      next(err);
+        const realFileName = preFile.content.replace(/img/g, "uploads");
+        const unlinkPath = path.join(__dirname, "../" + realFileName);
+
+        fs.unlink(unlinkPath, (err) => {
+          console.log("ok!");
+        });
+
+        // console.log("put==================" + req.file.filename);
+
+        const newUrl = `/img/${req.file.filename}`; // 내부 경로 감추기
+
+        await Gallery.updateOne(
+          { _id: req.params.id },
+          {
+            content: newUrl,
+          }
+        );
+
+        res.end("ok-update");
+      } catch (err) {
+        console.error(err);
+        next(err);
+      }
     }
-  })
+  )
   .delete("/gallery/:id", isLoggedIn, async (req, res, next) => {
     // 삭제
     try {
@@ -145,7 +167,6 @@ router
 
       // 파일 삭제
       fs.unlink(unlinkPath, (err) => {
-        if (err) throw err;
         console.log("ok!");
       });
 

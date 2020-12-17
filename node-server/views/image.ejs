@@ -6,39 +6,38 @@
     let update_cancel = document.getElementById("btn-update");
     let delete_complete = document.getElementById("btn-delete");
 
-    let title = document.getElementById("title");
-    let content = document.getElementById("content");
+    let preview = document.getElementById("img");
 
     let isUpdate = false;
+
+    let reader = new FileReader();
+    reader.onload = (e) => {
+      // console.log("reader onload()");
+      preview.setAttribute("src", e.target.result);
+    };
+
+    let form = new FormData();
 
     update_cancel.onclick = (e) => {
       if (!isUpdate) {
         // 수정 버튼
-        let inputTitle = document.createElement("input");
-        inputTitle.setAttribute("name", "title");
-        inputTitle.setAttribute("type", "text");
-        inputTitle.setAttribute("value", title.textContent.trim());
-        inputTitle.onchange = (e) => {
-          // console.log(e.target.value);    // 바뀐 문자열
-          inputTitle.setAttribute("value", e.target.value);
-        };
-        inputTitle.required = true;
-        inputTitle.autofocus = true;
 
         let inputContent = document.createElement("input");
-        inputContent.setAttribute("name", "content");
-        inputContent.setAttribute("type", "text");
-        inputContent.setAttribute("value", content.textContent.trim());
+        inputContent.setAttribute("id", "upload");
+        inputContent.setAttribute("type", "file");
+        inputContent.setAttribute("accept", "image/*");
+        inputContent.required = true;
+        inputContent.autofocus = true;
+
         inputContent.onchange = (e) => {
-          // console.log(e.target.value);    // 바뀐 문자열
-          inputContent.setAttribute("value", e.target.value);
+          // console.log("onchange()");
+          if (e.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0]);
+            form.ap;
+          }
         };
 
-        title.textContent = "";
-        title.append(inputTitle);
-
-        content.textContent = "";
-        content.append(inputContent);
+        document.getElementById("content").append(inputContent);
 
         update_cancel.textContent = "취소";
         delete_complete.textContent = "완료";
@@ -59,9 +58,9 @@
       } else {
         // 완료 버튼
         // console.log(`url = ${location.href}`);
-        await axios.patch(location.href, {
-          content: content.firstElementChild.getAttribute("src"),
-        });
+        // console.log(`file = ${document.getElementById("upload").files[0]}`);
+        form.append("img", document.getElementById("upload").files[0]);
+        await axios.put(location.href, form);
         location.reload();
       }
     };
@@ -78,7 +77,7 @@
     <tr>
       <td>
         <img
-          id="content"
+          id="img"
           src="<%= post.content %>"
           width="250px"
           height="250px"
@@ -87,9 +86,15 @@
       </td>
     </tr>
     <tr>
+      <td id="content"></td>
+    </tr>
+    <tr>
       <td style="text-align: left"><%=`작성자: ${post.author.nickname}`%></td>
     </tr>
-      <td style="text-align: left"><%=`작성일: ${post.createdAt.toISOString()}` %></td>
+    <tr>
+      <td style="text-align: left">
+        <%=`작성일: ${post.createdAt.toISOString()}` %>
+      </td>
     </tr>
     <% if(user && user.id===post.author.id) {%>
     <tr>

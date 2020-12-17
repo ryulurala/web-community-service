@@ -51,9 +51,10 @@
     <button id="img-btn" type="submit" style="display: none">올리기</button>
   </form>
 </div>
+<% } %>
 <table>
   <tbody>
-  <% } for(let i=0; i<posts.length; i++) { %>
+  <% for(let i=0; i<posts.length; i++) { %>
       <tr>
         <td>
           <a href="/page/gallery/<%= posts[i].id %>">
