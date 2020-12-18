@@ -6,7 +6,6 @@ const { upload } = require("./middlewares");
 const { Board, Gallery } = require("../schemas/post");
 const { isLoggedIn } = require("./middlewares");
 const User = require("../schemas/user");
-const { serialize } = require("v8");
 
 const router = express.Router();
 
