@@ -15,6 +15,10 @@ const boardSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  hashtags: {
+    type: [String],
+    require: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -30,6 +34,10 @@ const gallerySchema = new Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+  },
+  hashtags: {
+    type: [String],
+    require: false,
   },
   createdAt: {
     type: Date,

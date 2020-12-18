@@ -75,13 +75,11 @@
   <tbody>
     <tr>
       <td>제목:</td>
-      <td id="title" colspan="5" style="text-align: left"><%= post.title %></td>
+      <td id="title" style="text-align: left"><%= post.title %></td>
     </tr>
     <tr>
       <td>내용:</td>
-      <td id="content" colspan="5" style="text-align: left">
-        <%= post.content %>
-      </td>
+      <td id="content" style="text-align: left"><%= post.content %></td>
     </tr>
     <tr>
       <td>작성자:</td>
@@ -91,16 +89,22 @@
       <td>작성일:</td>
       <td style="text-align: left"><%= post.createdAt.toISOString() %></td>
     </tr>
+    <tr>
+      <td>해시태그:</td>
+      <td style="text-align: left">
+        <% for(index in post.hashtags) { %> <%= post.hashtags[index] %> <% }%>
+      </td>
+    </tr>
     <% if(user && user.id===post.author.id) {%>
     <tr>
-      <td colspan="5">
+      <td colspan="2">
         <button id="btn-update">수정</button>
         <button id="btn-delete">삭제</button>
       </td>
       <% } %>
     </tr>
     <tr>
-      <td colspan="5">
+      <td colspan="2">
         <a href="/page/board">목록</a>
       </td>
     </tr>

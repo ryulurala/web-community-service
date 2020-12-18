@@ -96,6 +96,11 @@
         <%=`작성일: ${post.createdAt.toISOString()}` %>
       </td>
     </tr>
+    <tr>
+      <td style="text-align: left">
+        <% for(index in post.hashtags) { %> <%= post.hashtags[index] %> <% } %>
+      </td>
+    </tr>
     <% if(user && user.id===post.author.id) {%>
     <tr>
       <td>

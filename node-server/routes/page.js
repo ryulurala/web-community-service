@@ -28,15 +28,12 @@ router.get("/", async (req, res, next) => {
     } else if (option === "author") {
       const user = await User.find({ nickname: searchText });
       // console.log(`userId = ${user}`);
-      posts = await Board.find({ author: user }).populate("author", "nickname");
-      posts = posts.concat(
-        await Gallery.find({ author: user }).populate("author", "nickname")
-      );
-      // 최근 순으로 정렬
-      posts.sort((postA, postB) => postB.createdAt - postA.createdAt);
+      posts = await Board.find({ author: user })
+        .populate("author", "nickname")
+        .sort({ createdAt: -1 });
     }
 
-    res.render("search", {
+    res.render("board", {
       title: "Community Service",
       header: "search",
       posts: posts,
@@ -50,10 +47,37 @@ router.get("/", async (req, res, next) => {
 router.get("/board", async (req, res, next) => {
   // render board page
   try {
-    const posts = await Board.find()
-      .sort({ createdAt: -1 }) // 날짜별 내림차순 = 최신순
-      .populate("author", "nickname");
-    // console.log(`posts = ${posts}`);
+    // console.log(`req.params search = ${req.query.search}`);
+    // console.log(`req.params option = ${req.query.option}`);
+    let posts;
+    if (req.query.search) {
+      console.log("query 존재!");
+      const searchText = req.query.search;
+      const option = req.query.option;
+
+      if (option === "content") {
+        // content
+        posts = await Board.find({ content: new RegExp(searchText) })
+          .populate("author", "nickname")
+          .sort({ createdAt: -1 });
+
+        console.log(`length = ${posts.length}`);
+      } else if (option === "author") {
+        const user = await User.find({ nickname: searchText });
+        // console.log(`userId = ${user}`);
+        posts = await Board.find({ author: user })
+          .populate("author", "nickname")
+          .sort({ createdAt: -1 });
+      }
+    } else {
+      posts = await Board.find()
+        .populate("author", "nickname")
+        .sort({ createdAt: -1 }); // 날짜별 내림차순 = 최신순
+      // console.log(`posts = ${posts}`);
+    }
+
+    // console.log(`post length = ${posts.length}`);
+
     res.render("board", {
       title: "Community Service",
       header: "board",
