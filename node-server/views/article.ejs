@@ -69,7 +69,9 @@
   };
 </script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<% } %> <%- include("./layouts/hashtag.ejs") %> <%- contentFor("contents") %>
+<% } %> <% if(user && user.id !== post.author.id) { %> <%-
+include("./layouts/send.ejs") %> <% } %><%- include("./layouts/hashtag.ejs")
+%><%- contentFor("contents") %>
 <!-- contents로 들어갈 내용(layout 에다가) -->
 <table>
   <tbody>
@@ -83,8 +85,51 @@
     </tr>
     <tr>
       <td>작성자:</td>
-      <td style="text-align: left"><%= post.author.nickname %></td>
+      <td style="text-align: left">
+        <% if(user && user.id !== post.author.id) { %>
+        <a
+          id="receiver"
+          href="javascript: send()"
+          style="text-decoration: none"
+        >
+          <%= post.author.nickname %>
+        </a>
+        <% } else { %> <%= post.author.nickname %> <% } %>
+      </td>
     </tr>
+    <% if(user && user.id !== post.author.id) { %>
+    <form action="/msg" method="post">
+      <tr>
+        <td colspan="2">
+          <input
+            type="text"
+            name="receiver"
+            value="<%= post.author.id %>"
+            style="display: none"
+          />
+          <input
+            type="text"
+            name="currentUrl"
+            value="<%= `/board/${post._id}` %>"
+            style="display: none"
+          />
+          <input
+            id="msg-content"
+            type="text"
+            name="content"
+            placeholder="메시지 내용"
+            style="display: none"
+          />
+          <input
+            id="msg-submit"
+            type="submit"
+            value="보내기"
+            style="display: none"
+          />
+        </td>
+      </tr>
+    </form>
+    <% } %>
     <tr>
       <td>작성일:</td>
       <td style="text-align: left"><%= post.createdAt.toISOString() %></td>

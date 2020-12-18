@@ -14,6 +14,7 @@ const indexRouter = require("./routes");
 const authRouter = require("./routes/auth");
 const pageRouter = require("./routes/page");
 const postRouter = require("./routes/post");
+const messageRouter = require("./routes/msg");
 
 dotenv.config();
 
@@ -66,6 +67,7 @@ app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/page", pageRouter);
 app.use("/post", postRouter);
+app.use("/msg", messageRouter);
 
 // router error
 app.use((req, res, next) => {

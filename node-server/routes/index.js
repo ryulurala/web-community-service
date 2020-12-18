@@ -29,10 +29,6 @@ router.get("/about", async (req, res, next) => {
   }
 });
 
-router.get("/messages", (req, res) => {
-  res.render("message", { title: "Community Service", header: "main" });
-});
-
 router.get("/join", isNotLoggedIn, (req, res) => {
   res.render("join", { title: "Register", header: "Join" });
 });

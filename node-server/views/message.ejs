@@ -1,13 +1,12 @@
-<%- contentFor("scripts") %>
-
-<%- contentFor("contents") %>
+<%- contentFor("scripts") %> <%- contentFor("contents") %>
 <div class="timeline">
   <div class="followings half">
     <h2>메시지 목록</h2>
-    <% if (user.messages) {%>
-    <% for (message of user.messages) {%>
-    <div><%= message.nick %></div>
-    <% } %>
+    <% for (index in messages) { %>
+    <h4>
+      <%= `${messages[index].sender.nickname}가 "${messages[index].content}"라고
+      보냄!` %>
+    </h4>
     <% } %>
   </div>
 </div>

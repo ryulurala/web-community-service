@@ -1,0 +1,16 @@
+<script>
+  function send() {
+    let content = document.getElementById("msg-content");
+    let button = document.getElementById("msg-submit");
+
+    if (content.style.display === "none" || button.style.display === "none") {
+      // console.log("none");
+      content.setAttribute("style", "display: inline;");
+      button.setAttribute("style", "display: inline;");
+    } else {
+      // console.log("inline");
+      content.setAttribute("style", "display: none;");
+      button.setAttribute("style", "display: none;");
+    }
+  }
+</script>
