@@ -1,0 +1,57 @@
+<%- contentFor("scripts") %>
+<!-- scripts 들어갈 내용(layout 에다가) -->
+
+<%- contentFor("contents") %>
+<!-- contents로 들어갈 내용(layout 에다가) -->
+<% if(posts) { %>
+<table>
+  <tbody>
+    <% for(index in posts) { %> <% if(posts[index].title) { %>
+    <tr>
+      <td style="text-align: left">
+        제목:
+        <a href="/page/board/<%= posts[index].id %>">
+          <%= posts[index].title %>
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><%= `내용: ${posts[index].content}` %></td>
+    </tr>
+    <% } else { %>
+    <tr>
+      <td>
+        <a href="/page/gallery/<%= posts[index].id %>">
+          <%= `사진 ${posts.length-index}` %>
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="<%= posts[index].content %>" width="250px" height="250px" />
+      </td>
+    </tr>
+    <% } %>
+    <tr>
+      <td style="text-align: left">
+        <%= `작성자: ${posts[index].author.nickname}` %>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">
+        <%= `작성일: ${posts[index].createdAt.toISOString()}` %>
+      </td>
+    </tr>
+    <tr>
+      <form name="hashtags" action="/page" method="get">
+        <td style="text-align: left">
+          해시태그: <% for(i in posts[index].hashtags) { %> <%=
+          posts[index].hashtags[i] %> <% }%>
+          <hr />
+        </td>
+      </form>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } %>

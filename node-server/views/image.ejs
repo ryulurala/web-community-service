@@ -33,7 +33,6 @@
           // console.log("onchange()");
           if (e.target.files[0]) {
             reader.readAsDataURL(e.target.files[0]);
-            form.ap;
           }
         };
 
@@ -67,7 +66,7 @@
   };
 </script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<% } %> <%- contentFor("contents") %>
+<% } %> <%- include("./layouts/hashtag.ejs") %> <%- contentFor("contents") %>
 <!-- contents로 들어갈 내용(layout 에다가) -->
 <table>
   <tbody>
@@ -97,9 +96,19 @@
       </td>
     </tr>
     <tr>
-      <td style="text-align: left">
-        <% for(index in post.hashtags) { %> <%= post.hashtags[index] %> <% } %>
-      </td>
+      <form name="hashtags" action="/page" method="get">
+        <td style="text-align: left">
+          해시태그: <% for(index in post.hashtags) { %>
+          <a
+            id="hashtag<%= index %>"
+            href="javascript: search(<%= index %>)"
+            style="text-decoration: none"
+          >
+            <%= post.hashtags[index] %>
+          </a>
+          &nbsp; <% } %>
+        </td>
+      </form>
     </tr>
     <% if(user && user.id===post.author.id) {%>
     <tr>

@@ -3,7 +3,7 @@
 
 <%- contentFor("contents") %>
 <!-- contents로 들어갈 내용(layout 에다가) -->
-<%- include("./layouts/search.ejs") %>
+<%- include("./layouts/searchForm.ejs") %>
 <div class="post-form">
   <% if(user && user.id){ %>
   <form id="board-form" action="/post/board" method="post">

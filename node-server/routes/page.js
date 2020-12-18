@@ -12,28 +12,26 @@ const router = express.Router();
 router.get("/", async (req, res, next) => {
   // 본문, 작성자 검색
   try {
-    // console.log(`req.params search = ${req.query.search}`);
-    console.log(`req.params option = ${req.query.option}`);
-    const searchText = req.query.search;
-    const option = req.query.option;
-    let posts;
+    // console.log(`req = ${req.query.tag}`);
+    const hashtag = req.query.tag;
+    const boards = await Board.find({ hashtags: new RegExp(hashtag) }).populate(
+      "author",
+      "nickname"
+    );
 
-    if (option === "content") {
-      // content
-      posts = await Board.find({ content: new RegExp(searchText) })
-        .populate("author", "nickname")
-        .sort({ createdAt: -1 });
+    const galleries = await Gallery.find({
+      hashtags: new RegExp(hashtag),
+    }).populate("author", "nickname");
 
-      console.log(`length = ${posts.length}`);
-    } else if (option === "author") {
-      const user = await User.find({ nickname: searchText });
-      // console.log(`userId = ${user}`);
-      posts = await Board.find({ author: user })
-        .populate("author", "nickname")
-        .sort({ createdAt: -1 });
-    }
+    // 합치기
+    const posts = boards.concat(galleries);
 
-    res.render("board", {
+    // 최근순 위로 가도록 정렬
+    posts.sort((postA, postB) => postB.createdAt - postA.createdAt);
+
+    // console.log(`length = ${posts.length}`);
+
+    res.render("search", {
       title: "Community Service",
       header: "search",
       posts: posts,

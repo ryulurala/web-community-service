@@ -69,7 +69,7 @@
   };
 </script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<% } %> <%- contentFor("contents") %>
+<% } %> <%- include("./layouts/hashtag.ejs") %> <%- contentFor("contents") %>
 <!-- contents로 들어갈 내용(layout 에다가) -->
 <table>
   <tbody>
@@ -90,10 +90,20 @@
       <td style="text-align: left"><%= post.createdAt.toISOString() %></td>
     </tr>
     <tr>
-      <td>해시태그:</td>
-      <td style="text-align: left">
-        <% for(index in post.hashtags) { %> <%= post.hashtags[index] %> <% }%>
-      </td>
+      <form name="hashtags" action="/page" method="get">
+        <td>해시태그:</td>
+        <td style="text-align: left">
+          <% for(index in post.hashtags) { %>
+          <a
+            id="hashtag<%= index %>"
+            href="javascript:search(<%= index %>)"
+            style="text-decoration: none"
+          >
+            <%= post.hashtags[index] %>
+          </a>
+          <% }%>
+        </td>
+      </form>
     </tr>
     <% if(user && user.id===post.author.id) {%>
     <tr>

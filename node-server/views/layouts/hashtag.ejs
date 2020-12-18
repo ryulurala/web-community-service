@@ -1,0 +1,16 @@
+<script>
+  function search(index) {
+    console.log(`target = ${index}`);
+    let tag = document.getElementById(`hashtag${index}`).textContent.trim();
+    // console.log(tag);
+
+    let inputText = document.createElement("input");
+    inputText.setAttribute("type", "text");
+    inputText.setAttribute("name", "tag");
+    inputText.setAttribute("value", tag);
+
+    let tagForm = document.hashtags;
+    tagForm.append(inputText);
+    tagForm.submit();
+  }
+</script>
