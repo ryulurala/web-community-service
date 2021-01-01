@@ -6,6 +6,10 @@
 
 ---
 
-Demo video [here]("https://www.youtube.com/watch?v=u1dUHBwIPTE&list=PLyaDjBUu6sYCJ955oKB0Xn2rjgjTMTx2q&index=15" "Youtube")
+Demo video [here](https://youtu.be/u1dUHBwIPTE "Youtube")
+
+---
+
+## Preview
 
 ---
